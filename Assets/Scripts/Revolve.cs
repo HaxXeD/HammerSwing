@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
+using TMPro;
+using System.Collections;
+using UnityEngine.UI;
 
 public class Revolve : MonoBehaviour
 {
+    ListAudio listAudio;
+    [SerializeField] TMP_Text counter;
+    [SerializeField] Image fillGauge;
     public event System.Action OnLaunch;
 
     //Reference to Throw.cs to enable it
@@ -14,6 +20,7 @@ public class Revolve : MonoBehaviour
     float angle1;
     float angle2;
     float difference;
+    float initAngle;
 
     Vector3 tangent;
 
@@ -28,18 +35,26 @@ public class Revolve : MonoBehaviour
     }
 
     [SerializeField] Transform target;
-
     private void Start()
     {
         speed = 240;
-        throwBall = GetComponent<Throw>();
+        throwBall = GetComponent<Throw>();   
+        listAudio = FindObjectOfType<ListAudio>();
+        initAngle = transform.rotation.eulerAngles.z;
     }
+
+private void Initial(){
+    gameObject.SetActive(true);
+}
+
     // Update is called once per frame
-    void FixedUpdate()
+    async void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             throwBall.enabled = true;
+            listAudio.PlaySound(6);
+            StartCoroutine(PlayClaps(1.5f));
             OnLaunch?.Invoke();
         }
 
@@ -72,6 +87,8 @@ public class Revolve : MonoBehaviour
             ++i;
             speed += 40;
             print(i);
+            counter.text = i.ToString();
+            listAudio.PlaySound(2);
             return;            
         }
         if (speed > 480)
@@ -79,5 +96,19 @@ public class Revolve : MonoBehaviour
             speed = 240;
         }
         #endregion
+
+        #region 
+        for (int i = 0;i<7;i++){
+            float angleDifference  = transform.eulerAngles.z - initAngle;
+            fillGauge.fillAmount = angleDifference/360;
+        }
+        
+        #endregion
+
+    
+        IEnumerator PlayClaps(float waitTime){
+        yield return new WaitForSeconds(waitTime);
+        listAudio.PlaySound(4);
+    }
     }
 }

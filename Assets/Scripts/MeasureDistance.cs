@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 
 public class MeasureDistance : MonoBehaviour
@@ -9,29 +9,22 @@ public class MeasureDistance : MonoBehaviour
     TMP_Text Distance;
 
     bool startMeasurement = false;
-    bool startTracking;
+    float distance;
 
     private void Start()
     {
         Distance = GetComponent<TMP_Text>();
-
+        
         FindObjectOfType<Revolve>().OnLaunch += Starting;
         FindObjectOfType<Throw>().OnCollision += Ending;
     }
 
     private void FixedUpdate()
     {
-        if (startTracking)
-        {
-            float distance;
-            if (startMeasurement)
-            {
-                distance = (ballPos.position.x - startPos.position.x)/10f;
-                Distance.text = distance.ToString() + "m";
-            }
-            Distance.transform.position = new Vector2(ballPos.position.x, Distance.transform.position.y);
-        }
-      
+        if(startMeasurement){
+            distance = (ballPos.position.x - startPos.position.x)/10f;    
+            Distance.text = distance.ToString() + "m";  
+        }    
     }
 
     private void Ending()
@@ -41,7 +34,6 @@ public class MeasureDistance : MonoBehaviour
 
     private void Starting()
     {
-        startTracking = true;
         startMeasurement = true;
     }
 }

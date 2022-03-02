@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Throw : MonoBehaviour
 {
+    ListAudio listAudio;
     public event System.Action OnCollision;
     Rigidbody2D rb;
     Revolve revolve;
@@ -20,6 +21,7 @@ public class Throw : MonoBehaviour
         tangent =  revolve.ReturnTangent();
         speed = revolve.ReturnSpeed();
         revolve.enabled = false;
+        listAudio = FindObjectOfType<ListAudio>();
     }
 
     void FixedUpdate()
@@ -36,7 +38,9 @@ public class Throw : MonoBehaviour
         if(collision.collider.tag == "ground")
         {
             rb.drag = Mathf.SmoothDamp(0,1,ref speed,3);
+            listAudio.PlaySound(3);
             OnCollision?.Invoke();
+            StartCoroutine(PlayClaps(0.5f));
             StartCoroutine(ReloadScene(6.5f));
         }
     }
@@ -46,4 +50,11 @@ public class Throw : MonoBehaviour
         yield return new WaitForSeconds(time);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+     IEnumerator PlayClaps(float time)
+    {
+        yield return new WaitForSeconds(time);
+        listAudio.PlaySound(0);
+    }
+
+    
 }
