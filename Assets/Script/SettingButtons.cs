@@ -9,13 +9,27 @@ public class SettingButtons : MonoBehaviour
         settings = FindObjectOfType<Settings>();  
     }
 
-    public void ShowUI()
+    public void ShowSettingsUI()
     {
-        settings.GetUI().SetActive(true);
+        settings.GetSettingsUI().SetActive(true);
     }
 
-    public void HideUI()
+    public void HideSettingsUI()
     {
-        settings.GetUI().SetActive(false);
+        settings.GetSettingsUI().SetActive(false);
+    }
+
+    public void ShowGameOverUI(){
+        settings.GetGameOverUI().SetActive(true);
+    }
+
+    public void HideGameOverUI(){
+        settings.GetGameOverUI().SetActive(false);
+    }
+    public void ShowLevelCompleteUI(){
+        settings.GetLevelCompleteUI().SetActive(true);
+    }
+    public void HideLevelCompleteUI(){
+        settings.GetLevelCompleteUI().SetActive(false);
     }
 }

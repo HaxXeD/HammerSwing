@@ -3,7 +3,9 @@ using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
-    [SerializeField] GameObject UI;
+    [SerializeField] GameObject SettingsUI;
+    [SerializeField] GameObject GameOverUI;
+    [SerializeField] GameObject LevelCompleteUI;
 
     [SerializeField] Slider brightnessSlider;
     [SerializeField] Slider contrastSlider;
@@ -30,9 +32,17 @@ public class Settings : MonoBehaviour
         canvas.worldCamera = Camera.main;
     }
 
-    public GameObject GetUI()
+    public GameObject GetSettingsUI()
     {
-        return UI;
+        return SettingsUI;
+    }
+
+    public GameObject GetGameOverUI(){
+        return GameOverUI;
+    }
+    
+    public GameObject GetLevelCompleteUI(){
+        return LevelCompleteUI;
     }
     public Slider GetBrightness()
     {

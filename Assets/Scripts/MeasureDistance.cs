@@ -36,4 +36,9 @@ public class MeasureDistance : MonoBehaviour
     {
         startMeasurement = true;
     }
+
+    private void OnDisable(){
+        FindObjectOfType<Revolve>().OnLaunch -= Starting;
+        FindObjectOfType<Throw>().OnCollision -= Ending;
+    }
 }

@@ -5,8 +5,7 @@ public class EffectManager : MonoBehaviour
     float valueToLerp;
     void Awake()
     {
-        GameManager.Instance.UpdateGameState(GameState.LevelStart);  
-              
+        GameManager.Instance.UpdateGameState(GameState.LevelStart);              
     }
     void Start(){
         listAudio = FindObjectOfType<ListAudio>();

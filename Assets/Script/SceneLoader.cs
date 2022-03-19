@@ -3,15 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public int ReturnNextSene(){
+        return SceneManager.GetActiveScene().buildIndex + 1;
+    }
+
+    public int ReturnCurrentScene(){
+        return SceneManager.GetActiveScene().buildIndex;
+    }
     public void PlayGame()
     {
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentScene + 1);
+        SceneManager.LoadScene(ReturnNextSene());
     }
 
     public void Reload(){
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentScene);
+        SceneManager.LoadScene(ReturnCurrentScene());
     }
 
     public void LoadMain()

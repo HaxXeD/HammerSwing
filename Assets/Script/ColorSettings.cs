@@ -29,6 +29,9 @@ public class ColorSettings : MonoBehaviour
     private void GameManagerOnGameStateChanged(GameState state)
     {
         if(state == GameState.LevelStart){
+            chromatic.intensity.value = 0;
+            lensDistortion.intensity.value = 0;
+            vignette.intensity.value =0;
             FindObjectOfType<Revolve>().OnLaunch+=Boom;
             FindObjectOfType<Throw>().OnCollision+=Disss;
         }
@@ -92,7 +95,7 @@ public class ColorSettings : MonoBehaviour
         StartCoroutine(LerpChrome(0,0.7f,1));
         StartCoroutine(LerpLens(0,-0.2f,1));
         StartCoroutine(LerpVignette(0,.4f,1));
-    }
+    }   
     private void Disss(){
         StartCoroutine(LerpChrome(0.7f,0,4));
         StartCoroutine(LerpLens(-0.2f,0,4));

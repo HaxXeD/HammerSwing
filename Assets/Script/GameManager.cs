@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 public class GameManager : MonoBehaviour
 {
+    SettingButtons settingButtons;
     public event System.Action<GameState> OnStateChange;
     public GameState state;
     private static GameManager _instance;
@@ -28,16 +30,22 @@ public class GameManager : MonoBehaviour
         switch (newState){
             case GameState.StartGame:
             break;
+
             case GameState.SelectLevel:
-            break;
+            break;            
+
             case GameState.LevelStart:
             break;
+
             case GameState.LevelComplete:
             break;
+
             case GameState.LevelFailed:
-            break;            
+            break;   
+
             case GameState.End:
             break;
+
             default:
             throw new System.Exception();
         }

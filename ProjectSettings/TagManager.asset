@@ -7,6 +7,8 @@ TagManager:
   - ball
   - ground
   - ballLight
+  - endpoints
+  - score
   layers:
   - Default
   - TransparentFX

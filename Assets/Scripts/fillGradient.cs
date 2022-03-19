@@ -10,7 +10,7 @@ public class fillGradient : MonoBehaviour
 
     private void Awake()
     {
-        _image = GetComponent<Image>();
+        _image = GetComponent<Image>();        
     }
 
     private void Update()

@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Throw : MonoBehaviour
 {
     ListAudio listAudio;
+    SceneLoader sceneLoader;
+    SettingButtons settingButtons;
     public event System.Action OnCollision;
     Rigidbody2D rb;
     Revolve revolve;
@@ -13,6 +14,9 @@ public class Throw : MonoBehaviour
     bool isThrown;
     float speed;
 
+    bool gameOverUIShown;
+    bool levelCompleteUIShown;
+    int nextScene;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,6 +26,9 @@ public class Throw : MonoBehaviour
         speed = revolve.ReturnSpeed();
         revolve.enabled = false;
         listAudio = FindObjectOfType<ListAudio>();
+        settingButtons = FindObjectOfType<SettingButtons>();
+        sceneLoader = FindObjectOfType<SceneLoader>();
+        nextScene = sceneLoader.ReturnNextSene();
     }
 
     void FixedUpdate()
@@ -30,6 +37,35 @@ public class Throw : MonoBehaviour
         {
             rb.AddForce(tangent * speed / 10, ForceMode2D.Impulse);
             isThrown = true;
+        }
+        if(GameManager.Instance.state == GameState.LevelFailed){
+            
+            if(!gameOverUIShown){
+                settingButtons.ShowGameOverUI();
+                gameOverUIShown = true;
+            }    
+        }
+        else if(GameManager.Instance.state == GameState.LevelComplete){
+            if(!levelCompleteUIShown){
+                settingButtons.ShowLevelCompleteUI();
+                levelCompleteUIShown = true;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space)){ 
+            if(gameOverUIShown){
+                settingButtons.HideGameOverUI(); 
+                gameOverUIShown = false;
+                sceneLoader.Reload();
+            }
+            else if(levelCompleteUIShown){
+                settingButtons.HideLevelCompleteUI();
+                levelCompleteUIShown = false;
+                sceneLoader.PlayGame();
+                if(nextScene>PlayerPrefs.GetInt("levelAt")){
+                    PlayerPrefs.SetInt("levelAt",nextScene);
+                }
+            }
         }
     }
 
@@ -43,12 +79,17 @@ public class Throw : MonoBehaviour
             StartCoroutine(PlayClaps(0.5f));
             StartCoroutine(ReloadScene(6.5f));
         }
+
+        if(collision.collider.tag == "endpoints"){
+            GameManager.Instance.UpdateGameState(GameState.LevelFailed);
+        }
     }
 
     IEnumerator ReloadScene(float time)
     {
         yield return new WaitForSeconds(time);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.Instance.UpdateGameState(GameState.LevelComplete);
+
     }
      IEnumerator PlayClaps(float time)
     {
