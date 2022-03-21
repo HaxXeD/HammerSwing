@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+// using TMPro;
 public class dropdown : MonoBehaviour
 {
     Dropdown m_Dropdown;
-    [SerializeField] TMP_Text drop;
-    [SerializeField] GameObject levelScreen;
-    [SerializeField] GameObject countryScreen;
+    // [SerializeField] TMP_Text drop;
+    [SerializeField] GameObject levelUI;
     private int _countryIndex;
 
     void Start()
@@ -30,7 +29,7 @@ public class dropdown : MonoBehaviour
     void DropdownValueChanged(Dropdown change)
     {
         _countryIndex = m_Dropdown.value;
-        levelScreen.SetActive(true);
-        countryScreen.SetActive(false);
+        levelUI.SetActive(true);
+        // countryScreen.SetActive(false);
     }
 }

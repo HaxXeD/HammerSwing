@@ -14,6 +14,6 @@ public class getcurrentscore : MonoBehaviour
     void Update()
     {
         _scoreText = GameObject.FindWithTag("score").GetComponent<TMP_Text>();
-        _thisText = _scoreText;
+        _thisText.text = "YOUR SCORE : <color=red>"  + _scoreText.text+"</color>";
     }
 }

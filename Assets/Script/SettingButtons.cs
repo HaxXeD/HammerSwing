@@ -14,22 +14,22 @@ public class SettingButtons : MonoBehaviour
         settings.GetSettingsUI().SetActive(true);
     }
 
-    public void HideSettingsUI()
-    {
-        settings.GetSettingsUI().SetActive(false);
-    }
+    // public void HideSettingsUI()
+    // {
+    //     settings.GetSettingsUI().SetActive(false);
+    // }
 
     public void ShowGameOverUI(){
         settings.GetGameOverUI().SetActive(true);
     }
 
     public void HideGameOverUI(){
-        settings.GetGameOverUI().SetActive(false);
+        settings.GetGameOverUI().GetComponent<GameOverUI>().OnClose();
     }
     public void ShowLevelCompleteUI(){
         settings.GetLevelCompleteUI().SetActive(true);
     }
     public void HideLevelCompleteUI(){
-        settings.GetLevelCompleteUI().SetActive(false);
+        settings.GetLevelCompleteUI().GetComponent<LevelCompleteUI>().OnClose();
     }
 }

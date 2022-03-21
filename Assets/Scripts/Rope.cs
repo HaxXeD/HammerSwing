@@ -155,12 +155,6 @@ public class Rope : MonoBehaviour
     public void SetGravityToOne()
     {
         forceGravity = new Vector2(0, -0.7f);
-    }
-
-    void OnDisable(){
-        FindObjectOfType<Revolve>().OnLaunch-=RemoveEndPoint;
-        FindObjectOfType<Throw>().OnCollision-=SetGravityToOne;
-    }
-            
+    }          
         
 }
