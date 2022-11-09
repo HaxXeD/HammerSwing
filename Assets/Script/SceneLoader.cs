@@ -19,7 +19,7 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(ReturnCurrentScene());
     }
 
-    public void LoadMain()
+    public void Home()
     {
         SceneManager.LoadScene(0);
     }

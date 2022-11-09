@@ -14,10 +14,10 @@ public class SettingButtons : MonoBehaviour
         settings.GetSettingsUI().SetActive(true);
     }
 
-    // public void HideSettingsUI()
-    // {
-    //     settings.GetSettingsUI().SetActive(false);
-    // }
+    public void HideSettingsUI()
+    {
+        settings.GetSettingsUI().GetComponent<SettingsBox>().CloseSetting();
+    }
 
     public void ShowGameOverUI(){
         settings.GetGameOverUI().SetActive(true);
@@ -32,4 +32,13 @@ public class SettingButtons : MonoBehaviour
     public void HideLevelCompleteUI(){
         settings.GetLevelCompleteUI().GetComponent<LevelCompleteUI>().OnClose();
     }
+
+    public void ShowPauseUI(){
+        settings.GetPauseUI().SetActive(true);
+    }
+
+    public void HidePauseUI(){
+        settings.GetPauseUI().GetComponent<PauseUI>().ClosePause();
+    }
+
 }

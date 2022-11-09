@@ -4,6 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Throw : MonoBehaviour
 {
+    LineRenderer ln;
     ListAudio listAudio;
     SceneLoader sceneLoader;
     SettingButtons settingButtons;
@@ -17,8 +18,10 @@ public class Throw : MonoBehaviour
     bool gameOverUIShown;
     bool levelCompleteUIShown;
     int nextScene;
+
     private void Start()
     {
+        ln = GetComponent<LineRenderer>();
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
         revolve = GetComponent<Revolve>();
@@ -54,11 +57,15 @@ public class Throw : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space)){ 
             if(gameOverUIShown){
-                settingButtons.HideGameOverUI(); 
+                settingButtons.HideSettingsUI(); 
+                settingButtons.HidePauseUI();
+                settingButtons.HideGameOverUI();
                 gameOverUIShown = false;
                 sceneLoader.Reload();
             }
             else if(levelCompleteUIShown){
+                settingButtons.HideSettingsUI();
+                settingButtons.HidePauseUI();
                 settingButtons.HideLevelCompleteUI();
                 levelCompleteUIShown = false;
                 sceneLoader.PlayGame();
@@ -73,14 +80,16 @@ public class Throw : MonoBehaviour
     {
         if(collision.collider.tag == "ground")
         {
-            rb.drag = Mathf.SmoothDamp(0,1,ref speed,3);
+            ln.enabled = false;
+            rb.drag = Mathf.SmoothDamp(0,1,ref speed,1);
             listAudio.PlaySound(3);
-            OnCollision?.Invoke();
+            OnCollision?.Invoke();            
             StartCoroutine(PlayClaps(0.5f));
             StartCoroutine(ReloadScene(6.5f));
         }
 
         if(collision.collider.tag == "endpoints"){
+            OnCollision?.Invoke(); 
             GameManager.Instance.UpdateGameState(GameState.LevelFailed);
         }
     }
@@ -91,11 +100,9 @@ public class Throw : MonoBehaviour
         GameManager.Instance.UpdateGameState(GameState.LevelComplete);
 
     }
-     IEnumerator PlayClaps(float time)
+    IEnumerator PlayClaps(float time)
     {
         yield return new WaitForSeconds(time);
         listAudio.PlaySound(0);
-    }
-
-    
+    }    
 }

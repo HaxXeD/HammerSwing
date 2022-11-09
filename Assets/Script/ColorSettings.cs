@@ -92,14 +92,14 @@ public class ColorSettings : MonoBehaviour
     }
 
     private void Boom(){
-        StartCoroutine(LerpChrome(0,0.7f,1));
-        StartCoroutine(LerpLens(0,-0.2f,1));
-        StartCoroutine(LerpVignette(0,.4f,1));
+        StartCoroutine(LerpChrome(0,0.5f,1));
+        StartCoroutine(LerpLens(0,-0.1f,1));
+        StartCoroutine(LerpVignette(0,0.2f,1));
     }   
     private void Disss(){
-        StartCoroutine(LerpChrome(0.7f,0,4));
-        StartCoroutine(LerpLens(-0.2f,0,4));
-        StartCoroutine(LerpVignette(.4f,0,4));
+        StartCoroutine(LerpChrome(0.5f,0,4));
+        StartCoroutine(LerpLens(-0.1f,0,4));
+        StartCoroutine(LerpVignette(0.2f,0,4));
     }
 
     IEnumerator LerpChrome(float startValue, float endValue, float lerpDuration)

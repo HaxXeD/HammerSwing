@@ -9,6 +9,8 @@ TagManager:
   - ballLight
   - endpoints
   - score
+  - fill
+  - counter
   layers:
   - Default
   - TransparentFX

@@ -7,16 +7,19 @@ public class GameOverUI : MonoBehaviour
         gameObject.transform.localPosition = Vector3.zero;
         gameObject.transform.localScale = Vector3.zero;
         background.alpha = 0;
-        background.LeanAlpha(1,0.5f);
-        gameObject.LeanScale(Vector3.one,0.5f).setEaseInQuad().delay = 0.1f;
+        gameObject.LeanScale(Vector3.one,0.5f).setEaseInQuad();
+        background.LeanAlpha(3,0.5f);
     }
 
     public void OnClose(){
-        background.LeanAlpha(0,0.5f);
-        gameObject.LeanMoveLocalY(Screen.height,0.5f).setEaseInQuad().setOnComplete(AfterCompletion).delay = .1f;
+        background.LeanAlpha(0,0.5f).setOnComplete(AfterCompletion);        
     }
 
     void AfterCompletion(){
+        gameObject.LeanMoveLocalY(Screen.height,0.5f).setEaseInQuad().setOnComplete(SetInactive);
+    }
+
+    void SetInactive(){
         gameObject.SetActive(false);
     }
 }

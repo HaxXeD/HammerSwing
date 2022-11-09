@@ -7,8 +7,8 @@ public class Revolve : MonoBehaviour
     SettingButtons settingButtons;
     ListAudio listAudio;
     SceneLoader sceneLoader;
-    [SerializeField] TMP_Text counter;
-    [SerializeField] Image fillGauge;
+    TMP_Text counter;
+    Image fillGauge;
     public event System.Action OnLaunch;
 
     //Reference to Throw.cs to enable it
@@ -40,6 +40,11 @@ public class Revolve : MonoBehaviour
     }
 
     [SerializeField] Transform target;
+
+    private void Awake(){
+        fillGauge = GameObject.FindGameObjectWithTag("fill").GetComponent<Image>();
+        counter = GameObject.FindGameObjectWithTag("counter").GetComponent<TMP_Text>();
+    }
     private void Start()
     {
         speed = 300;
@@ -86,6 +91,8 @@ public class Revolve : MonoBehaviour
         }
     
         if(Input.GetKeyDown(KeyCode.Space)&&gameOverUIShown){ 
+            settingButtons.HideSettingsUI();
+            settingButtons.HidePauseUI();
             settingButtons.HideGameOverUI(); 
             gameOverUIShown = false;
             print(gameOverUIShown);     
@@ -136,7 +143,7 @@ public class Revolve : MonoBehaviour
         }
 
         if (i >= 6)
-        {   
+        {               
             //Conditions left to experiment, for now kept basic.
             loopRunnig = false;
             fillGauge.fillAmount = 0f;

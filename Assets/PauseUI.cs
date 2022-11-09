@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class SettingsBox : MonoBehaviour
-{
-    public Transform box;
-    public CanvasGroup background;
+public class PauseUI : MonoBehaviour
+{  
+    [SerializeField] Transform box;
+    [SerializeField] CanvasGroup background;
 
     private void OnEnable(){
         background.alpha = 0;
@@ -13,9 +13,9 @@ public class SettingsBox : MonoBehaviour
         box.LeanMoveLocalY(0,0.5f).setEaseOutExpo().delay = 0.1f;
     }
 
-    public void CloseSetting(){
+    public void ClosePause(){
         background.LeanAlpha(0,0.5f);
-        box.LeanMoveLocalY(-Screen.height,.5f).setEaseInExpo().setOnComplete(OnComplete);
+        box.LeanMoveLocalY(-Screen.height,0.5f).setEaseInExpo().setOnComplete(OnComplete);
     }
 
     private void OnComplete(){

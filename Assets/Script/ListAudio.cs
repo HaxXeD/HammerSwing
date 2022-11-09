@@ -19,4 +19,18 @@ public class ListAudio : MonoBehaviour
         Source.clip = Clip;
         Source.PlayOneShot(Source.clip);
     }
+
+    public void PlaySoundOnce(int index){
+        Clip  = gameSounds[index];
+        Source.clip = Clip;
+        Source.Play();
+    }
+
+    public void OnHover(){
+        PlaySoundOnce(1);
+    }
+
+    public void OnClick(){
+        
+    }
 }

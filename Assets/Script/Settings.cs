@@ -5,7 +5,9 @@ public class Settings : MonoBehaviour
 {
     [SerializeField] GameObject SettingsUI;
     [SerializeField] GameObject GameOverUI;
+    [SerializeField] GameObject PauseUI;
     [SerializeField] GameObject LevelCompleteUI;
+
 
     [SerializeField] Slider brightnessSlider;
     [SerializeField] Slider contrastSlider;
@@ -39,6 +41,10 @@ public class Settings : MonoBehaviour
 
     public GameObject GetGameOverUI(){
         return GameOverUI;
+    }
+
+    public GameObject GetPauseUI(){
+        return PauseUI;
     }
     
     public GameObject GetLevelCompleteUI(){
